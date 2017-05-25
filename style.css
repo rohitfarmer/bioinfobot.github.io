@@ -1,0 +1,12 @@
+body {
+    font-family: 'Actor';font-size: 22px;
+    background-color: whitesmoke;
+}
+
+.container{
+    display: grid;
+}
+
+.header{
+    text-align: center;
+}
