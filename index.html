@@ -18,6 +18,34 @@
     <p id="date"></p>
     <script>
         document.getElementById("date").innerHTML = Date();
-    </script> 
+    </script>
+    <script type="text/javascript">
+  
+  //Users time
+  var timeLocal = new Date();
+  //Servers time
+  var timeServer = new Date("<%= time date string from server %>");
+  
+  //Calculate the difference (returns milliseconds)
+  millDiff = timeLocal - timeServer;
+  
+  //initalize the clock on loading of page
+  window.onload=function(){
+    //set the interval so clock ticks
+    var timeClock=setInterval("TimeTick()",10);
+  }
+  
+  //The ticking clock function
+  function TimeTick(){
+    //grab updated time
+    timeLocal = new Date();
+    //add time difference
+    timeLocal.setMilliseconds(timeLocal.getMilliseconds() - millDiff);
+    //display the value
+    document.getElementById("spanTime").innerHTML =timeLocal;
+  }
+  
+</script>
+<span id="spanTime"></span>
 </body>
 </html>
