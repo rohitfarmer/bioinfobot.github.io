@@ -11,8 +11,11 @@ body {
     text-align: center;
 }
 
-#form1{
-    display: inline-block;
+#hearts{
+    text-align: center;
+}
+
+#mainform{
     text-align: center;
 }
 
