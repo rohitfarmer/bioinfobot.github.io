@@ -6,16 +6,17 @@
 	<link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <link href="style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="script.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body onload="onloadfunc()">
-
+<div id="container">
     <div class="header">
         <h1>Bioinformatics Bot</h1>
         <h4>About</h4>
     </div>
 	
 	<div id="wordcloud"></div>
-
+	<p id="month"></p>
 	<form id="mainform">
 		<select name="year">
 		<option value="2017">2017</option>
@@ -28,7 +29,15 @@
 	  	<input id="but" type="button" onclick="main(this.form)" value="Bot It!">
 	</form>
 
+<p id="oneliner"></p>
+<p id="tCount"></p>
+<p id="tWords"></p>
+<p id="uWords"></p>
+
+<p>Top 20 Tweeters</p>
+<p id="uFreq"></p>
 <p id="hearts">Made with &hearts; for Bioinformatitions.</p>
+</div>
 
 <noscript>
 	Your browser doesn't support or has disabled JavaScript. This website will not function without JavaScript.

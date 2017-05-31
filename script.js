@@ -11,7 +11,9 @@ function onloadfunc(){
 	//document.write(imagePath)
 	var imageInsert = '<img align="center" id="wordcloud"'+'src='+'"'+imagePath+'"'+'OnError="this.src=\'images\/default.png\'\;"'+'>';
 	//document.write(imageInsert)
-	document.getElementById("wordcloud").innerHTML = imageInsert;		
+	document.getElementById("wordcloud").innerHTML = imageInsert;
+	monthText = "Analysis results for "+name;
+	document.getElementById("month").innerHTML = monthText;		
 	//alert('It seems that the bot is still processing results please visit later for latest results.');
 		
 }
@@ -27,5 +29,31 @@ function main(yearMonth) {
 	//var imageInsert = '<img id="wordcloud"'+'src='+"\""+'images\/'+name+'.png'+"\""+'OnError="this.src=\'images\/default.png\'\;"'+'>';
 	var imageInsert = '<img id="wordcloud"'+'src='+"\""+'images\/'+name+'.png'+"\""+'OnError="wrongyear\(\)\;"'+'>';
 	document.getElementById("wordcloud").innerHTML = imageInsert;
+	monthText = "Analysis results for "+name;
+	document.getElementById("month").innerHTML = monthText;	
+	jsondata(name);
 }
 
+// This function mostly uses jQuery
+function jsondata(name){
+	//alert(name)
+	jsonPath = "https\:\/\/bioinfobot\.github\.io\/data\/"+name+".json";
+	$.getJSON(jsonPath, function(json) {
+    	usersFreq=json.UsersFreq;
+		topWords=json.TopWords;
+		hashFreq=json.HashFreq;
+
+		$(oneliner).html(json.TweetCount+" tweets were analyzed consisting of "+json.TotalWords+" total words with "+json.UniqueWords+" unique words.");
+		$(tCount).html("Total tweets analyzed "+json.TweetCount);
+		$(tWords).html("Total words "+json.TotalWords);
+		$(uWords).html("Unique words "+json.UniqueWords);
+
+		var userArr=[];
+		for (var i=0; i<usersFreq.length; i++) {
+			string="\@"+usersFreq[i][0]+" ("+usersFreq[i][1]+"), ";
+			userArr.push(string)
+			//alert(usersFreq[i]);
+		}
+		$(uFreq).html(userArr);
+	});
+}

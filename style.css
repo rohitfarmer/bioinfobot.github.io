@@ -1,26 +1,33 @@
 body {
     font-family: 'Actor';font-size: 22px;
     background-color: white;
+    text-align: center;
 }
 
-.container{
-    display: grid;
-}
+#container{
+    
+ }
 
 .header{
-    text-align: center;
+
 }
 
 #hearts{
-    text-align: center;
+    
 }
 
 #mainform{
-    text-align: center;
+    
 }
 
 #wordcloud {
     border-radius: 10px;
-    width: 100%;
+    width: 90%;
+    margin: auto auto;
     height: auto;
+}
+
+#uFreq{
+	width: 90%;
+	text-align: center;
 }
