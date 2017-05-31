@@ -21,7 +21,6 @@ body {
 
 #wordcloud {
     border-radius: 10px;
-    width: 90%;
+    width: 100%;
     height: auto;
-    margin: auto;
 }

@@ -9,7 +9,7 @@ function onloadfunc(){
 	//document.write(name);
 	var imagePath = "images\/"+name+".png"
 	//document.write(imagePath)
-	var imageInsert = '<img id="wordcloud"'+'src='+'"'+imagePath+'"'+'OnError="this.src=\'images\/default.png\'\;"'+'>';
+	var imageInsert = '<img align="center" id="wordcloud"'+'src='+'"'+imagePath+'"'+'OnError="this.src=\'images\/default.png\'\;"'+'>';
 	//document.write(imageInsert)
 	document.getElementById("wordcloud").innerHTML = imageInsert;		
 	//alert('It seems that the bot is still processing results please visit later for latest results.');
