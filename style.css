@@ -4,6 +4,11 @@ body {
     text-align: center;
 }
 
+#home{
+	text-decoration: none;
+	color: black;
+}
+
 #container{
     
  }
@@ -57,14 +62,15 @@ a.downloadjson:link {
     color: #DA70D6;
 }
 #about{
-	width: 50%;
+	width: 80%;
 	margin: auto auto;
 	text-align: justify;
 }
-
-
 hr.style13 {
 	height: 10px;
 	border: 0;
 	box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+.hearts{
+	color: #FF0000;
 }
