@@ -20,7 +20,7 @@ from collections import OrderedDict
 import json
 
 # Establish connection to Sqlite3 database
-conn = sqlite3.connect('bioinfotweet.db')
+conn = sqlite3.connect('../bioinfotweet.db')
 c = conn.cursor()
 
 def tweetClean(text):
@@ -71,7 +71,7 @@ for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
 			tweetID = row[3]
 			tweetText = tweetClean(row[4].lower())
 			stopWords = list(stopwords.words("english"))
-			myStopWords = ['also','cant','dont','hear','here','ive','im','like','new','news','oh','see','top',
+			myStopWords = ['also','cant','dont','hear','here','ive','im','like','latest','new','news','oh','see','top',
 						   'th','twitter','thats','thanks','us','x']
 			stopWords = stopWords + myStopWords
 			words = word_tokenize(tweetText)
@@ -83,12 +83,14 @@ for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
 				continue
 			else:
 				totalHash += hashMatch
-		else :
-			break
+		#else :
+			#break
 
 totalWords = len(filteredText)
+#print(totalWords)
 freq = FreqDist(filteredText)
 uniqueWords = len(freq)
+#print(uniqueWords)
 del filteredText
 
 stopHash =['#twitter','#tweeted'] # Hastags of no interest
@@ -97,13 +99,14 @@ hashFreq = FreqDist(totalHash)
 usersFreq = FreqDist(totalUsers)
 
 # Generate a word cloud image
-wordcloud = WordCloud(font_path='SpecialElite.ttf', width = 1500, height=500,  
+wordcloud = WordCloud(font_path='Actor-Regular.ttf', width = 1500, height=500,  
 			max_words=500,	stopwords=None, background_color='whitesmoke', 
 			max_font_size=None, font_step=1, mode='RGB', 
 			collocations=True, colormap=None, normalize_plurals=True).generate_from_frequencies(freq)
 imageName = '2017-05.png'
-imageURL = "/images/README.txt" # Put the actual path of the word cloud image produced in the previous step
-wordcloud.to_file(imageName)
+imagePath = "images/"+imageName # Put the actual path of the word cloud image produced in the previous step
+wordcloud.to_file(imagePath)
+imageUrl = "https://bioinfobot.github.io/"+imagePath
 
 
 def dictValueSortReturnTop (dict,max):
@@ -134,7 +137,7 @@ del usersFreq
 # Create a json file
 # The top level data structure of a json file or object is a dictionary
 # Variable to store data for json dump
-mainJsonDump = {"ImageURL":imageURL,"TopWords":topWords,"TweetCount":rowCount, "TotalWords":totalWords, "UniqueWords":uniqueWords,'HashFreq':hashFreqSorted,'UsersFreq':usersFreqSorted}
+mainJsonDump = {"ImageURL":imageUrl,"TopWords":topWords,"TweetCount":rowCount, "TotalWords":totalWords, "UniqueWords":uniqueWords,'HashFreq':hashFreqSorted,'UsersFreq':usersFreqSorted}
 # ImageURL contains the path to the wordcloud image produced in the previous block in string format
 # TopWords contains the top words arranged in descending order in 
 # an array. Each array element is a tuple/array with two entries, word (index 0) and frequency (index 1)
@@ -145,13 +148,14 @@ mainJsonDump = {"ImageURL":imageURL,"TopWords":topWords,"TweetCount":rowCount, "
 # UsersFreq contains top n users
 
 # Write a json file
-with open('wordCloudDump.json', 'w') as wcd:
+jsonPath = 'data/2017-05.json'
+with open(jsonPath, 'w') as wcd:
 	json.dump(mainJsonDump, wcd)
 
 # Load the above created json file and read the elements from dictionary and arrays 
 # This code is a template to reproduce it in JavaScript for the website
 # It shows how the elements are stored in the json file
-with open('wordCloudDump.json', 'r') as rwcd:
+with open(jsonPath, 'r') as rwcd:
 	obj = json.load(rwcd)
 	print(json.dumps(obj, indent='\t'))
 	# print('ImageURL:',obj['ImageURL'])
