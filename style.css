@@ -12,14 +12,6 @@ body {
 
 }
 
-#hearts{
-    
-}
-
-#mainform{
-    
-}
-
 #wordcloud {
     border-radius: 10px;
     width: 90%;
@@ -27,7 +19,56 @@ body {
     height: auto;
 }
 
-#uFreq{
+.top{
 	width: 90%;
 	text-align: center;
+	margin: auto auto;
+}
+.headings{
+	font-weight: bold;
+	font-size: 26px;
+}
+
+a:link {
+    text-decoration: none;
+    color: green;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    color: purple;
+}
+
+a.twitter-mention-button,.twitter-follow-button:link {
+	text-decoration: none;
+    color: #00aced;
+}
+
+a.twitter-mention-button,.twitter-follow-button:hover {
+	text-decoration: none;
+    color: purple;
+}
+
+a.downloadjson:link {
+    text-decoration: none;
+    color: #DA70D6;
+}
+#about{
+	width: 50%;
+	margin: auto auto;
+	text-align: justify;
+}
+
+.admirers{
+	width: 500px 90%;
+	margin: auto auto;
+}
+
+hr.style13 {
+	height: 10px;
+	border: 0;
+	box-shadow: 0 10px 10px -10px #8c8b8b inset;
 }
