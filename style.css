@@ -62,14 +62,15 @@ a.downloadjson:link {
 	text-align: justify;
 }
 
-.admirers{
-	width: 90%;
-	margin: auto auto;
-	text-align: center;
-}
 
 hr.style13 {
 	height: 10px;
 	border: 0;
 	box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+blockquote{
+	text-align: center;
+	width: 90%;
+	margin: auto auto;
 }
