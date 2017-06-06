@@ -1,19 +1,20 @@
 body {
-    font-family: 'Actor';font-size: 22px;
+    font-family: 'Actor', monospace;
+    font-size: 22px;
     background-color: white;
     text-align: center;
 }
 
-#home{
-	text-decoration: none;
-	color: black;
+#home {
+    text-decoration: none;
+    color: black;
 }
 
-#container{
-    
- }
+#container {
 
-.header{
+}
+
+.header {
 
 }
 
@@ -24,14 +25,15 @@ body {
     height: auto;
 }
 
-.top{
-	width: 90%;
-	text-align: center;
-	margin: auto auto;
+.top {
+    width: 90%;
+    text-align: center;
+    margin: auto auto;
 }
-.headings{
-	font-weight: bold;
-	font-size: 26px;
+
+.headings {
+    font-weight: bold;
+    font-size: 26px;
 }
 
 a:link {
@@ -47,13 +49,13 @@ a:hover {
     color: purple;
 }
 
-a.twitter-mention-button,.twitter-follow-button:link {
-	text-decoration: none;
+a.twitter-mention-button, .twitter-follow-button:link {
+    text-decoration: none;
     color: #00aced;
 }
 
-a.twitter-mention-button,.twitter-follow-button:hover {
-	text-decoration: none;
+a.twitter-mention-button, .twitter-follow-button:hover {
+    text-decoration: none;
     color: purple;
 }
 
@@ -61,16 +63,19 @@ a.downloadjson:link {
     text-decoration: none;
     color: #DA70D6;
 }
-#about{
-	width: 80%;
-	margin: auto auto;
-	text-align: justify;
+
+#about {
+    width: 80%;
+    margin: auto auto;
+    text-align: justify;
 }
+
 hr.style13 {
-	height: 10px;
-	border: 0;
-	box-shadow: 0 10px 10px -10px #8c8b8b inset;
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
 }
-.hearts{
-	color: #FF0000;
+
+.hearts {
+    color: #FF0000;
 }
