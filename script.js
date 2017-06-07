@@ -34,7 +34,7 @@ function jsondata(name){
     jsonPath = "https\:\/\/bioinfobot\.github\.io\/data\/" + name + ".json";
 	$.getJSON(jsonPath, function(json) {
         var string, usersFreq, topWords, hashFreq, langFreq, hashArr, userArr, wordsArr, langArr;
-        $(oneliner).html("Analytical results for <b>" + name + "</b> based on <b>" + json.TweetCount + "</b> tweets consisting of <b>" + json.TotalWords + "</b> total words with <b>" + json.UniqueWords + "</b> unique words.");
+        $(oneliner).html("Analytical results for <b>" + name + "</b> based on <b>" + json.TweetCount + "</b> tweets consisting of <b>" + json.TotalWords + "</b> total words with <b>" + json.UniqueWords + "</b> filtered words.");
 
         usersFreq = json.UsersFreq;
         topWords = json.TopWords;
