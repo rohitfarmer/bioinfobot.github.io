@@ -42,12 +42,6 @@ month = current_utc[5:7]
 month = int(month) - 1
 name = "{0}-{1}".format(year, str(month).zfill(2))
 
-file_prog = open("programminglang.txt", "r")
-for i in file_prog:
-    prog_lang.append(i.rstrip())
-    tempdict = {i.rstrip(): 0}
-    total_lang.update(tempdict)
-
 for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
     creationDate = row[0]
     creation_month = int(creationDate[5:7])
@@ -63,8 +57,8 @@ for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
                        'see', 'top', 'th', 'twitter', 'thats', 'thanks', 'us', 'x']
         stopWords = stopWords + myStopWords
         words = word_tokenize(tweetText)
-        fileteredSentence = [w for w in words if w not in stopWords]
-        filteredText += fileteredSentence
+        filteredSentence = [w for w in words if w not in stopWords]
+        filteredText += filteredSentence
         hashMatch = re.findall('#\w+', row[4].lower())
         if not hashMatch:
             continue
@@ -72,6 +66,12 @@ for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
             totalHash += hashMatch
     elif creation_month < month:
         break
+
+file_prog = open("programminglang.txt", "r")
+for i in file_prog:
+    prog_lang.append(i.rstrip())
+    tempdict = {i.rstrip(): 0}
+    total_lang.update(tempdict)
 
 for ha in totalHash:
     for pro in prog_lang:
