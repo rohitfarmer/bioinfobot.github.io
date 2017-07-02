@@ -1,4 +1,3 @@
-mod 400 ~/.ssh/bio-ssh-key
 function onloadfunc(){
     var m, name, imagePath, d;
     d = new Date();
