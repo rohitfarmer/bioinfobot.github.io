@@ -17,6 +17,7 @@ from collections import OrderedDict
 
 # Import non core modules
 from nltk.tokenize import word_tokenize
+from nltk import pos_tag
 from nltk.corpus import stopwords
 from nltk import FreqDist
 from wordcloud import WordCloud
@@ -53,10 +54,15 @@ for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
         tweetID = row[3]
         tweetText = tweet_clean(row[4].lower())
         stopWords = list(stopwords.words("english"))
-        myStopWords = ['also', 'cant', 'dont', 'hear', 'here', 'ive', 'im', 'like', 'latest', 'new', 'news', 'oh',
-                       'see', 'top', 'th', 'twitter', 'thats', 'thanks', 'us', 'x']
+        myStopWords = ['also', 'bad', 'cant', 'dont', 'day', 'great', 'get', 'good', 'hear', 'here', 'ive', 'im', 'like', 'latest', 'new', 'news', 'oh',
+                       'people', 'see', 'today', 'top', 'th', 'twitter', 'thats', 'thanks', 'us', 'using', 'work', 'x']
         stopWords = stopWords + myStopWords
         words = word_tokenize(tweetText)
+        tagged = pos_tag(words)
+        # words = []
+        # for tup in tagged:
+        #     if 'V' not in tup[1]:
+        #         words.append(tup[0])
         filteredSentence = [w for w in words if w not in stopWords]
         filteredText += filteredSentence
         hashMatch = re.findall('#\w+', row[4].lower())
