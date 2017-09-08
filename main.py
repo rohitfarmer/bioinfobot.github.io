@@ -54,7 +54,7 @@ for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
         tweetID = row[3]
         tweetText = tweet_clean(row[4].lower())
         stopWords = list(stopwords.words("english"))
-        myStopWords = ['also', 'bad', 'cant', 'dont', 'day', 'great', 'get', 'good', 'hear', 'here', 'ive', 'im', 'like', 'latest', 'new', 'news', 'oh',
+        myStopWords = ['also', 'bad', 'cant', 'could', 'dont', 'day', 'great', 'get', 'good', 'hear', 'here', 'ive', 'im', 'like', 'latest', 'new', 'news', 'oh',
                        'people', 'see', 'today', 'top', 'th', 'twitter', 'thats', 'thanks', 'us', 'using', 'work', 'would','x']
         stopWords = stopWords + myStopWords
         words = word_tokenize(tweetText)
