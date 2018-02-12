@@ -37,10 +37,12 @@ prog_lang = []
 total_lang = {}
 
 # Calculate date
-current_utc = str(datetime.datetime.now(datetime.timezone.utc))
-year = current_utc[0:4]
-month = current_utc[5:7]
-month = int(month) - 1
+#current_utc = str(datetime.datetime.now(datetime.timezone.utc))
+#year = current_utc[0:4]
+year = "2017"
+#month = current_utc[5:7]
+#month = int(month) - 1
+month = 12
 name = "{0}-{1}".format(year, str(month).zfill(2))
 
 for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
@@ -70,8 +72,8 @@ for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
             continue
         else:
             totalHash += hashMatch
-    elif creation_month < month:
-        break
+    #elif creation_month < month:
+        #break
 
 file_prog = open("programminglang.txt", "r")
 for i in file_prog:
