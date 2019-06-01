@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
-"""
-Author			: Rohit Farmer
-Type 			: Script
-Description		: Analyse tweet database and generate wordcloud
-License			: GNU GPL V3.0
-Contact			: rohitfarmer@protonmail.com
-Non core module: nltk, wordcloud
-"""
 
-# Import core modules
+'''
+DESCRIPTION     : Analyse tweet database and generate wordcloud.
+DEPENDENCIES    : nltk, wordcloud
+USAGE           : python3 tweet_analyse.py
+OUTPUT          : Generates a data file in JSON format
+                  Generates a wordcloud image in jpg format
+'''
+# Standard library.
 import re
 from twitterfunc import tweet_clean
 import datetime
 import sqlite3
 from collections import OrderedDict
 
-# Import non core modules
+# External library.
 from nltk.tokenize import word_tokenize
 from nltk import pos_tag
 from nltk.corpus import stopwords
@@ -23,11 +22,11 @@ from nltk import FreqDist
 from wordcloud import WordCloud
 import json
 
-# Establish connection to Sqlite3 database
-conn = sqlite3.connect('../bioinfotweet.db')
+# Establish connection to Sqlite3 database.
+conn = sqlite3.connect('../../db/bioinfotweet.db')
 c = conn.cursor()
 
-# Extract tweets' text from the database followed by filtering and tokenizing
+# Extract tweets' text from the database followed by filtering and tokenizing.
 filteredText = []
 rowCount = 0
 totalHash = []
@@ -36,14 +35,18 @@ totalTweetID = []
 prog_lang = []
 total_lang = {}
 
-# Calculate date
+# Calculate date.
 current_utc = str(datetime.datetime.now(datetime.timezone.utc))
 year = current_utc[0:4]
-#year = "2017"
 month = current_utc[5:7]
-month = int(month) - 1
-#month = 12
-name = "{0}-{1}".format(year, str(month).zfill(2))
+
+if month == 1: # This is to check for the year change (January month)
+    month = 12
+    year = int(year) - 1
+else:
+    month = int(month) - 1
+
+name = "{0}-{1}".format(year, str(month).zfill(2)) # name here means yyyy-mm
 
 for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
     creationDate = row[0]
@@ -56,15 +59,13 @@ for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
         tweetID = row[3]
         tweetText = tweet_clean(row[4].lower())
         stopWords = list(stopwords.words("english"))
-        myStopWords = ['also', 'bad', 'cant', 'could', 'dont', 'day', 'great', 'get', 'good', 'hear', 'here', 'ive', 'im', 'like', 'latest', 'new', 'news', 'oh',
-                       'people', 'see', 'today', 'top', 'th', 'twitter', 'thats', 'thanks', 'us', 'using', 'work', 'would','x']
+        myStopWords = ['also', 'bad', 'cant', 'could', 'dont', 'day', 'great', 'get', 'good', 'hear', 
+                       'here', 'ive', 'im', 'like', 'latest', 'new', 'news', 'oh', 'people', 'see', 
+                       'today', 'top', 'the', 'twitter', 'thats', 'thanks', 'us', 'using', 'work', 
+                       'would','x']
         stopWords = stopWords + myStopWords
         words = word_tokenize(tweetText)
         tagged = pos_tag(words)
-        # words = []
-        # for tup in tagged:
-        #     if 'V' not in tup[1]:
-        #         words.append(tup[0])
         filteredSentence = [w for w in words if w not in stopWords]
         filteredText += filteredSentence
         hashMatch = re.findall('#\w+', row[4].lower())
@@ -72,9 +73,20 @@ for row in c.execute('SELECT * FROM tweetscapture ORDER BY Date DESC'):
             continue
         else:
             totalHash += hashMatch
-    elif creation_month < month:
-        break
+    # elif creation_month < month:
+    #     break
+    elif month == 12:
+        print("Analysis Month: {}".format(month))
+        if creation_month == 11:
+            print("Creation Month: {}".format(creation_month))
+            break
+    else:
+        if creation_month < month:
+            print("Analysis Month: {}".format(month))
+            print("Creation Month: {}".format(creation_month))
+            break
 
+# Open txt file with the list of programming languages
 file_prog = open("programminglang.txt", "r")
 for i in file_prog:
     prog_lang.append(i.rstrip())
@@ -97,14 +109,14 @@ hashFreq = FreqDist(totalHash)
 usersFreq = FreqDist(totalUsers)
 lang_freq = FreqDist(total_lang)
 
-# Generate a word cloud image
+# Generate a word cloud image.
 wordcloud = WordCloud(font_path='Actor-Regular.ttf', width=1500, height=500,
                       max_words=500, stopwords=None, background_color='whitesmoke',
                       max_font_size=None, font_step=1, mode='RGB',
                       collocations=True, colormap=None, normalize_plurals=True).generate_from_frequencies(freq)
-imagePath = "images/" + name + '.png'  # Put the actual path of the word cloud image produced in the previous step
+imagePath = "/home/bioinformaticsbot/bioinfobot/images/" + name + '.png'  # Put the actual path of the word cloud image produced in the previous step
 wordcloud.to_file(imagePath)
-imageUrl = "https://bioinfobot.github.io/" + imagePath
+imageUrl = "https://rohitfarmer.github.io/bioinfobot/images/" + name + '.png'
 
 
 def dict_value_sort_return_top(frquency_dict, maxreturn):
@@ -154,7 +166,7 @@ mainJsonDump = {"ImageURL": imageUrl, "TopWords": topWords, "TweetCount": rowCou
 # UsersFreq contains top n users
 
 # Write a json file
-jsonPath = 'data/' + name + '.json'
+jsonPath = '/home/bioinformaticsbot/bioinfobot/data/' + name + '.json'
 with open(jsonPath, 'w') as wcd:
     json.dump(mainJsonDump, wcd)
 

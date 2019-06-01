@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 
+'''
+DESCRIPTION     : Custom function library.
+USAGE           : from twitterfunc import tweet_clean
+OUTPUT          : function return
+AUTHOR          : Dr. Rohit Farmer
+EMAIL           : rohit.farmer@gmail.com
+'''
+
 import re
 import string
-
 
 def tweet_clean(text):
     """Function to remove unwanted text/words from tweets. This is independent of nltk stopwords method."""
@@ -36,4 +43,3 @@ def tweet_clean(text):
     # Remove digits
     text = re.sub('\d+', '', text)
     return text
-

@@ -5,6 +5,7 @@ function onloadfunc(){
     m = ("0" + m).slice(-2);
     var y = d.getUTCFullYear();
     name = y + '-' + m;
+    //name = '2018-02'
     imagePath = "images\/" + name + ".png";
     var imageInsert = '<img align="center" id="wordcloud"' + 'src=' + '"' + imagePath + '"' + 'OnError="this.src=\'images\/default.png\'\;"' + '>';
 	$(wordcloud).html(imageInsert);
@@ -12,7 +13,7 @@ function onloadfunc(){
 }
 
 function wrongyear(){
-	alert("I can only show data from the past, neither present nor future. \nPlease try again with a previous month.");
+	alert("Please enter a date between May 2017 and February 2018 or October 2018 onwards.");
 	location.reload();
 }
 
@@ -30,7 +31,7 @@ function main(yearMonth) {
 function jsondata(name){
 	//alert(name)
     var jsonPath;
-    jsonPath = "https\:\/\/bioinfobot\.github\.io\/data\/" + name + ".json";
+    jsonPath = "https\:\/\/rohitfarmer\.github\.io\/bioinfobot\/data\/" + name + ".json";
 	$.getJSON(jsonPath, function(json) {
         var string, usersFreq, topWords, hashFreq, langFreq, hashArr, userArr, wordsArr, langArr;
         $(oneliner).html("Analytical results for <b>" + name + "</b> based on <b>" + json.TweetCount + "</b> tweets consisting of <b>" + json.TotalWords + "</b> total words with <b>" + json.UniqueWords + "</b> unique words.");
@@ -68,7 +69,7 @@ function jsondata(name){
         }
         $(pLang).html(langArr);
 
-		string='\<a class\=\"downloadjson\" href\=\"https\:\/\/bioinfobot\.github\.io\/data\/'+name+"\.json\"\>"+"Download data for "+name+" in Json format. \<\/a\>"
+		string='\<a class\=\"downloadjson\" href\=\"https\:\/\/rohitfarmer\.github\.io\/bioinfobot\/data\/'+name+"\.json\"\>"+"Download data for "+name+" in Json format. \<\/a\>"
 		$(downloadjson).html(string);
 	});
 }
